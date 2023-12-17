@@ -1,20 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Space Dodge</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Space Dodge</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    .game-area {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      background-color: #222;
+    }
+
+    .player,
+    .enemy {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+    }
+
+    .player {
+      top: 180px;
+      left: 180px;
+    }
+
+    .score {
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    #selectPlatformBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="game-area">
-        <div class="player"></div>
-        <div class="enemy"></div>
-        <div class="score">Score: <span id="score">0</span></div>
-    </div>
+  <div class="game-area">
+    <div class="player"></div>
+    <div class="enemy"></div>
+    <div class="score">Score: <span id="score">0</span></div>
+  </div>
 
-    <script src="script.js"></script>
+  <button id="selectPlatformBtn">Select Platforms</button>
+
+  <script>
+    const player = document.querySelector('.player');
+    const enemy = document.querySelector('.enemy');
+    const scoreDisplay = document.getElementById('score');
+
+    let score = 0;
+    let isGameOver = false;
+
+    function moveEnemy() {
+      let topPosition = Math.random() * 350;
+      let leftPosition = Math.random() * 350;
+      enemy.style.top = `${topPosition}px`;
+      enemy.style.left = `${leftPosition}px`;
+    }
+
+    function updateScore() {
+      score++;
+      scoreDisplay.textContent = score;
+    }
+
+    // Function to handle selecting platforms
+    function selectPlatforms(platform) {
+      if (platform === 'all') {
+        console.log('All platforms selected: Android, iOS');
+        // Add logic here for selecting all platforms
+        // For this example, it just logs a message
+      } else if (platform === 'stock') {
+        console.log('Stock platform selected');
+        // Add logic here for selecting the stock platform
+        // For this example, it just logs a message
+      }
+    }
+
+    // Event listener for the select platform button
+    const selectPlatformBtn = document.getElementById('selectPlatformBtn');
+    if (selectPlatformBtn) {
+      selectPlatformBtn.addEventListener('click', () => {
+        const selectedPlatform = prompt('Enter platform (all/stock):');
+        if (selectedPlatform) {
+          selectPlatforms(selectedPlatform.toLowerCase());
+        }
+      });
+    }
+
+    // Set interval for moving enemy (simulation)
+    setInterval(moveEnemy, 1000);
+  </script>
 </body>
-
 </html>
